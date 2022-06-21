@@ -3,6 +3,7 @@ target CCpp;
 import Sender from "Sender.lf"
 import Receiver from "Receiver.lf"
 federated reactor {
-sender = new Sender();
-receiver = new Receiver();
+    sender = new Sender();
+    receiver = new Receiver();
+    sender.out -> receiver.in serializer "ROS2";
 }

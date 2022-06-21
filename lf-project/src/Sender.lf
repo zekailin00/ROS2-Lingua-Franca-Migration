@@ -4,27 +4,30 @@ cmake-include: "include/composition.cmake"
 };
 
 preamble {=
-#include <memory>
-#include "publisher_member_function.cpp"
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+    #include <memory>
+    #include "publisher_member_function.cpp"
+    #include "rclcpp/rclcpp.hpp"
+    #include "std_msgs/msg/string.hpp"
 =}
 
 reactor Sender {
-// Instantiate the publisher node as a sate variable
-state publisher_node : std::shared_ptr<MinimalPublisher>;
-reaction(startup) {=
-// Initialize rclcpp
-rclcpp::init(0, NULL);
-// Instantiate the ROS node
-// Note: Sending messages is still done in ROS
-self->publisher_node = std::make_shared<MinimalPublisher>(); //TODO:Fix
-// Start the rclcpp's event handling loop
-// Event handling is still done in ROS
-rclcpp::spin(self->publisher_node);
-=}
-
-reaction(shutdown) {=
-rclcpp::shutdown();
-=}
+    // Instantiate the publisher node as a sate variable
+    state publisher_node : std::shared_ptr<MinimalPublisher>;
+    output out:std_msgs::msg::String;
+    timer t(0, 1 sec);
+    state count:int(0);
+    reaction(startup) {=
+    // Initialize rclcpp
+        rclcpp::init(0, NULL);
+        // Instantiate the ROS node
+        self->publisher_node = std::make_shared<MinimalPublisher>();
+    =}
+    reaction(t) -> out {=
+        auto message = std_msgs::msg::String();
+        message.data = "Hello, world! " + std::to_string(self->count++);
+        lf_set(out, message);
+    =}
+    reaction(shutdown) {=
+    rclcpp::shutdown();
+    =}
 }
