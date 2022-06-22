@@ -5,4 +5,4 @@ ament_target_dependencies(${LF_MAIN_TARGET} rclcpp)
 ament_target_dependencies(${LF_MAIN_TARGET} lf_simple)
 ament_target_dependencies(${LF_MAIN_TARGET} std_msgs)
 
-include_directories("/home/admin/Desktop/finished/new_package/lf_simple/src") #TODO:Fix
+include_directories("/home/admin/Desktop/finished/lf_simple_package/lf_simple/src")

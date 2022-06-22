@@ -1,4 +1,4 @@
-// ~/lf-ros-demo/lf-project/src/Sender.lf
+// src/Sender.lf
 target CCpp {
 cmake-include: "include/composition.cmake"
 };
@@ -18,7 +18,7 @@ reactor Sender {
     state count:int(0);
 
     reaction(startup) {=
-    // Initialize rclcpp
+        // Initialize rclcpp
         rclcpp::init(0, NULL);
         // Instantiate the ROS node
         self->publisher_node = std::make_shared<MinimalPublisher>();
@@ -31,6 +31,6 @@ reactor Sender {
     =}
 
     reaction(shutdown) {=
-    rclcpp::shutdown();
+        rclcpp::shutdown();
     =}
 }

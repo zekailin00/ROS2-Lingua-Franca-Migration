@@ -1,13 +1,13 @@
-// ~/lf-ros-demo/lf-project/src/Receiver.lf
+// src/Receiver.lf
 target CCpp {
 cmake-include: "include/composition.cmake"
 };
 
 preamble {=
-#include <memory>
-#include "subscriber_member_function.cpp"
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+    #include <memory>
+    #include "subscriber_member_function.cpp"
+    #include "rclcpp/rclcpp.hpp"
+    #include "std_msgs/msg/string.hpp"
 =}
 
 reactor Receiver {
@@ -16,10 +16,10 @@ reactor Receiver {
     input in:std::shared_ptr<std_msgs::msg::String>;
 
     reaction(startup) {=
-    // Initialize rclcpp
-    rclcpp::init(0, NULL);
-    // Instantiate the ROS node
-    self->subscriber_node = std::make_shared<MinimalSubscriber>();
+        // Initialize rclcpp
+        rclcpp::init(0, NULL);
+        // Instantiate the ROS node
+        self->subscriber_node = std::make_shared<MinimalSubscriber>();
     =}
 
     reaction(in) {=
