@@ -13,7 +13,7 @@ preamble {=
 reactor Receiver {
     // Instantiate the subscriber node as a sate variable
     state subscriber_node : std::shared_ptr<MinimalSubscriber>;
-    input in:std_msgs::msg::String;
+    input in:std::shared_ptr<std_msgs::msg::String>;
 
     reaction(startup) {=
     // Initialize rclcpp
@@ -23,7 +23,7 @@ reactor Receiver {
     =}
 
     reaction(in) {=
-        lf_print("Received %s", in->value.data.c_str());
+        lf_print("Received %s", in->value->data.c_str());
         self->subscriber_node->topic_callback(in->value);
     =}
 
