@@ -2,9 +2,33 @@
 
 ## Prerequisites 
 
-1. install Lingua Franca lfc (command line compiler)
-2. install Linuga Franca RTI (runtime infrastructure)
-3. install ROS2 foxy
+### 1. install Lingua Franca lfc (command line compiler)
+```
+git clone https://github.com/lf-lang/lingua-franca.git
+cd lingua-franca/
+./gradlew buildLfc
+cd bin
+pwd
+```
+
+After lfc is built successfully, add the path to lfc shown from the last command to the environment. Reopen the terminal and enter `lfc --version` to make sure lfc is installed.
+
+### 2. install Linuga Franca RTI (runtime infrastructure)
+
+```
+cd .. #Going back to the lingua-franca repo folder
+git submodule update --init
+cd org.lflang/src/lib/c/reactor-c/core/federated/RTI
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+```
+Make sure that RTI has installed succesfully by running `which RTI`
+
+### 3. install ROS2 foxy
+
+Follow the instructions on ROS2 website.
 
 ## Build Instructions 
 
