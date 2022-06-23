@@ -70,6 +70,10 @@ int main(int argc, char * argv[])
   return 0;
 }
 ```
+
+> **NOTE** Private helper/member functions have to be modified to public. In addition, duplicated components such as `create_wall_timer(
+      500ms, std::bind(&MinimalPublisher::timer_callback, this)` can be removed in the LF reactor.
+
 ### Build Lingua Franca program
 
 ```
